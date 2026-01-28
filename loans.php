@@ -2,7 +2,6 @@
 session_start();
 include 'db.php';
 
-// Cek apakah user sudah login
 if(!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -11,13 +10,11 @@ if(!isset($_SESSION['user_id'])) {
 $user_role = $_SESSION['user_role'];
 $user_name = $_SESSION['user_name'];
 
-// Hanya ketua dan sekretaris yang bisa akses
 if($user_role === 'anggota') {
     header('Location: dashboard.php');
     exit();
 }
 
-// Handle delete
 if(isset($_GET['delete']) && ($user_role === 'ketua' || $user_role === 'sekretaris')) {
     $id = $_GET['delete'];
     $sql = "DELETE FROM loans WHERE id = $id";
@@ -28,7 +25,6 @@ if(isset($_GET['delete']) && ($user_role === 'ketua' || $user_role === 'sekretar
     }
 }
 
-// Handle edit
 if(isset($_POST['update']) && ($user_role === 'ketua' || $user_role === 'sekretaris')) {
     $id = $_POST['id'];
     $borrower_name = $_POST['borrower_name'];
@@ -44,7 +40,6 @@ if(isset($_POST['update']) && ($user_role === 'ketua' || $user_role === 'sekreta
     }
 }
 
-// Handle add
 if(isset($_POST['add']) && ($user_role === 'ketua' || $user_role === 'sekretaris')) {
     $borrower_name = $_POST['borrower_name'];
     $amount = $_POST['amount'];
@@ -61,7 +56,6 @@ if(isset($_POST['add']) && ($user_role === 'ketua' || $user_role === 'sekretaris
     }
 }
 
-// Get loan for edit
 $edit_loan = null;
 if(isset($_GET['edit'])) {
     $id = $_GET['edit'];
