@@ -1,33 +1,27 @@
 <?php
-session_start();
-include 'config.php';
+include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $username = $_POST['username'];
+if(isset($_POST['submit'])) {
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT id, username, role 
-            FROM users 
-            WHERE username=? AND password=?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $password);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
-
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
-
-        header("Location: dashboard.php");
-        exit();
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+        if(password_verify($password, $user['password'])) {
+            echo "Login berhasil! Selamat datang, ".$user['name'];
+        } else {
+            echo "Password salah!";
+        }
     } else {
-        echo "Login gagal!";
+        echo "Email tidak ditemukan!";
     }
 }
 ?>
+
+<form method="post">
+    Email: <input type="email" name="email" required><br>
+    Password: <input type="password" name="password" required><br>
+    <button type="submit" name="submit">Login</button>
+</form>
