@@ -201,7 +201,7 @@ $user_id = $_SESSION['user_id'];
                 while($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $no . "</td>";
-                    echo "<td>" . $row['name'] . "</td>";
+                    echo "<td>" . ($row['name'] ?? '') . "</td>";
                     echo "<td>" . $row['email'] . "</td>";
                     echo "<td><span style='background-color: #e3f2fd; padding: 5px 10px; border-radius: 3px;'>" . ucfirst($row['role']) . "</span></td>";
                     echo "<td>" . date('d-m-Y', strtotime($row['created_at'])) . "</td>";

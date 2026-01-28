@@ -1,6 +1,6 @@
 <?php
 // koneksi ke database
-$conn = mysqli_connect("localhost", "root", "12345", "backendpeminjaman");
+$conn = mysqli_connect("localhost", "root", "", "backendpeminjaman");
 
 // cek koneksi
 if (!$conn) {
