@@ -30,7 +30,7 @@ if(isset($_POST['submit'])) {
 
 <html>
 <head>
-    <title>Login Sistem Peminjaman</title>
+    <title>Login Sistem</title>
     <style>
         body { font-family: Arial; margin: 50px; }
         form { border: 1px solid #ccc; padding: 20px; width: 300px; }
@@ -40,7 +40,7 @@ if(isset($_POST['submit'])) {
     </style>
 </head>
 <body>
-<h2>Login Sistem Peminjaman</h2>
+<h2>Login Sistem</h2>
 <form method="post">
     Email: <input type="email" name="email" required><br>
     Password: <input type="password" name="password" required><br>
